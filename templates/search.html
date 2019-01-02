@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+
+<form action="/s" method="post">
+    {{ form.hidden_tag() }}
+    <p align="center">
+        {{ form.book_name.label }} {{ form.book_name }}
+        {{ form.submit() }}
+    </p>
+</form>
+
+{% if book_list %}
+<table align="center" border="1">
+    <tr>
+        <th>Book Name</th>
+        <th>Author</th>
+    </tr>
+    {% for book in book_list %}
+    <tr>
+        <td>{{ book[0] }}</td>
+        <td>{{ book[1] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+</body>
+</html>

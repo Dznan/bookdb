@@ -1,7 +1,7 @@
-from .form import SearchForm
+from .form import SearchForm, LoginForm
 from .db import BookDatabase
 
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, request, redirect, url_for, render_template
 
 
 app = Flask(__name__)
@@ -11,6 +11,21 @@ app.config['SECRET_KEY'] = 'xSWEdn&v03uj0@'
 @app.route('/')
 def hello_world():
     return 'Hello World!'
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        submit_form = request.form
+        username = submit_form['username']
+        password = submit_form['password']
+        db = BookDatabase()
+        if db.validate_login(username, password):
+            return redirect(url_for('reviews'))
+        else:
+            return redirect(url_for('login'))
+    return render_template('login.html', form=form)
 
 
 @app.route('/s', methods=['GET', 'POST'])
@@ -29,12 +44,11 @@ def search(book_name):
     return render_template('search.html', form=form, book_list=book_list)
 
 
-@app.route('/review')
+@app.route('/reviews')
 def reviews():
     db = BookDatabase()
     review_list = db.grab_review()
     return render_template('reviews.html', review_list=review_list)
-
 
 
 if __name__ == '__main__':

@@ -37,3 +37,15 @@ class BookDatabase:
         self.cur.execute(query)
         result = self.cur.fetchall()
         return result
+
+    def validate_login(self, username, password):
+        query = '''
+        SELECT password
+        FROM user
+        WHERE user_name = \'{}\'
+        '''.format(username)
+
+        self.cur.execute(query)
+        result = self.cur.fetchone()
+
+        return result[0] == password

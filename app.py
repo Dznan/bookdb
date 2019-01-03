@@ -1,5 +1,5 @@
-from .form import SearchForm, LoginForm
-from .db import BookDatabase
+from form import SearchForm, LoginForm
+from db import BookDatabase
 
 from flask import Flask, request, redirect, url_for, render_template
 

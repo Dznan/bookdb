@@ -29,9 +29,11 @@ class BookDatabase:
 
     def grab_review(self):
         query = '''
-        SELECT title, content
-        FROM books, reviews
-        WHERE reviews.book_id = books.book_id;
+        SELECT title, content, review_likes_count.likes_num
+        FROM books, reviews, review_likes_count
+        WHERE reviews.book_id = books.book_id and reviews.review_id = review_likes_count.reviews
+        ORDER BY reviews.time desc
+        LIMIT 0,20;  
         '''
 
         self.cur.execute(query)

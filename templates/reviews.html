@@ -11,11 +11,13 @@
     <tr>
         <th>Book Name</th>
         <th>Review</th>
+        <th>Likes</th>
     </tr>
     {% for review in review_list %}
     <tr>
         <td>{{ review[0] }}</td>
         <td>{{ review[1] }}</td>
+        <td>{{ review[2] }}</td>
     </tr>
     {% endfor %}
 </table>

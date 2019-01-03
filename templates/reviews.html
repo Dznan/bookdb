@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+
+{% if review_list %}
+<table align="center" border="1">
+    <tr>
+        <th>Book Name</th>
+        <th>Review</th>
+    </tr>
+    {% for review in review_list %}
+    <tr>
+        <td>{{ review[0] }}</td>
+        <td>{{ review[1] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+</body>
+</html>

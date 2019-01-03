@@ -29,5 +29,13 @@ def search(book_name):
     return render_template('search.html', form=form, book_list=book_list)
 
 
+@app.route('/review')
+def reviews():
+    db = BookDatabase()
+    review_list = db.grab_review()
+    return render_template('reviews.html', review_list=review_list)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)

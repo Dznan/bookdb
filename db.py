@@ -23,9 +23,17 @@ class BookDatabase:
         WHERE books.author = author_id AND title like '%{}%';
         '''.format(book_name)
 
-        print(query)
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
+    def grab_review(self):
+        query = '''
+        SELECT title, content
+        FROM books, reviews
+        WHERE reviews.book_id = books.book_id;
+        '''
 
         self.cur.execute(query)
         result = self.cur.fetchall()
-        print(result)
         return result

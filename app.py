@@ -53,9 +53,10 @@ def search_front():
 @app.route('/search?book_name=<book_name>')
 def search(book_name):
     db = BookDatabase()
+    searchKey=book_name
     book_list = db.search_with_book_name(book_name)
     form = SearchForm()
-    return render_template('search.html', form=form, book_list=book_list)
+    return render_template('search.html', form=form, book_list=book_list, searchKey=searchKey)
 
 
 @app.route('/reviews')

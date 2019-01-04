@@ -4,30 +4,95 @@
     <meta charset="UTF-8">
     <title>Search</title>
 </head>
+<link rel="stylesheet" type="text/css" href="static/semantic.min.css">
+
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="static/semantic.min.js"></script>
+
+<style type="text/css">
+    body > .ui.container {
+      margin-top: 2em;
+    }
+    iframe {
+      border: none;
+      width: calc(100% + 2em);
+      margin: 0em -1em;
+      height: 300px;
+    }
+    iframe html {
+      overflow: hidden;
+    }
+    iframe body {
+      padding: 0em;
+    }
+
+    .SearchForm {
+      margin: auto;
+      margin-top: 2em;
+      width: 25%;
+      align-content: center;
+    }
+
+    .SearchResultForm {
+      margin: auto;
+      margin-top: 2em;
+      width: 70%;
+    }
+
+    .SearchResultForm > h1 {
+      font-size: 2em;
+      text-align: left;
+      font-weight: bold;
+    }
+
+</style>
+
 <body>
 
-<form action="/s" method="post">
+<div class="ui container">
+
+<div class="SearchForm">
+<form action="/s" method="post" class="ui form">
     {{ form.hidden_tag() }}
-    <p align="center">
+    <div class="field" style="float:left;vertical-align:middle;">
         {{ form.book_name }}
-        {{ form.submit() }}
-    </p>
+    </div>
+        <!-- {{ form.submit() }} -->
+    <button class="ui primary button" type="submit" style="margin-left: 1em;">搜索</button>
 </form>
+</div>
+
+<div class="SearchResultForm">
+{% if searchKey %}
+<h1>关于“{{ searchKey }}”的搜索结果</h1>
+{% endif %}
 
 {% if book_list %}
-<table align="center" border="1">
-    <tr>
-        <th>Book Name</th>
-        <th>Author</th>
-    </tr>
-    {% for book in book_list %}
-    <tr>
-        <td>{{ book[0] }}</td>
-        <td>{{ book[1] }}</td>
-    </tr>
+
+<h2 class="ui dividing header"></h2>
+<table class="ui unstackable table">
+    <thead>
+        <tr>
+            <th>Book Name</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in book_list %}
+        <tr>
+            <td>《{{ book[0] }}》</td>
+            <td>{{ book[1] }}</td>
+        </tr>
+    </tbody>
     {% endfor %}
 </table>
 {% endif %}
+</div>
+
+</div>
 
 </body>
 </html>

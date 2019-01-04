@@ -2,18 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Search</title>
+    <title>Login</title>
+<link rel="stylesheet" type="text/css" href="static/semantic.min.css">
+
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="static/semantic.min.js"></script>
+
+<style type="text/css">
+    .LoginForm {
+      margin: auto;
+      margin-top: 2em;
+      width: 25%;
+      align-content: center;
+    }
+</style>
+
 </head>
 <body>
 
-<form action="/login" method="post">
-    {{ form.hidden_tag() }}
-    <p align="center">
-        {{ form.username }}
-        {{ form.password }}
-        {{ form.login() }}
-    </p>
-</form>
+<div class="main ui container">
+<div class="LoginForm">
+  <form action="/login" method="post" class="ui form" >
+      {{ form.hidden_tag() }}
+      <p align="center">
+      	<div class="field">
+  	    	<label>用户名</label>
+  	        {{ form.username }}
+  	  	</div>
+          <div class="field">
+  	    	<label>密码</label>
+  	        {{ form.password }}
+  	  	</div>
+          <!-- {{ form.login() }} -->
+      </p>
+      <button class="ui primary button" type="submit">Login</button>
+  </form>
+</div>
+</div>
 
 </body>
 </html>

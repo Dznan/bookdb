@@ -2,26 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Search</title>
+    <title>Reviews Trending</title>
+<link rel="stylesheet" type="text/css" href="static/semantic.min.css">
+
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="static/semantic.min.js"></script>
+
+<style type="text/css">
+    body > .ui.container {
+      margin-top: 2em;
+    }
+    iframe {
+      border: none;
+      width: calc(100% + 2em);
+      margin: 0em -1em;
+      height: 300px;
+    }
+    iframe html {
+      overflow: hidden;
+    }
+    iframe body {
+      padding: 0em;
+    }
+
+    .ui.container > h1 {
+      font-size: 3em;
+      text-align: center;
+      font-weight: normal;
+    }
+
+    .ui.container > h2.dividing.header {
+      font-size: 2em;
+      font-weight: normal;
+      margin: 1em 0em 1em;
+    }
+
+  </style>
 </head>
 <body>
-
-{% if review_list %}
-<table align="center" border="1">
-    <tr>
-        <th>Book Name</th>
-        <th>Review</th>
-        <th>Likes</th>
-    </tr>
-    {% for review in review_list %}
-    <tr>
-        <td>{{ review[0] }}</td>
-        <td>{{ review[1] }}</td>
-        <td>{{ review[2] }}</td>
-    </tr>
-    {% endfor %}
-</table>
-{% endif %}
+<div class="ui container">
+    {% if review_list %}
+    <h1>最新书评 - Newest Reviews</h1>
+    <h2 class="ui dividing header"></h2>
+    <table class="ui unstackable table">
+        <thead>
+            <tr>
+                <th>Book Name</th>
+                <th>Review</th>
+                <th>Likes</th>
+            </tr>
+        </thead>
+        {% for review in review_list %}
+        <tbody>
+            <tr>
+                <td width="18%">《{{ review[0] }}》</td>
+                <td>{{ review[1] }}</td>
+                <td width="8%">{{ review[2] }}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
 
 </body>
 </html>

@@ -27,7 +27,7 @@ class BookDatabase:
         result = self.cur.fetchall()
         return result
 
-    def grab_review(self):
+    def get_reviews(self):
         query = '''
         SELECT title, content, review_likes_count.likes_num
         FROM books, reviews, review_likes_count
@@ -39,6 +39,30 @@ class BookDatabase:
         self.cur.execute(query)
         result = self.cur.fetchall()
         return result
+
+    def get_username_by_id(self, id):
+        query = '''
+        SELECT user_name
+        FROM user
+        WHERE user_id = \'{}\'
+        '''.format(id)
+
+        self.cur.execute(query)
+        username,  = self.cur.fetchone()
+
+        return username
+
+    def get_password_by_id(self, id):
+        query = '''
+        SELECT password
+        FROM user
+        WHERE user_id = \'{}\'
+        '''.format(id)
+
+        self.cur.execute(query)
+        password,  = self.cur.fetchone()
+
+        return password
 
     def validate_login(self, username, password):
         query = '''

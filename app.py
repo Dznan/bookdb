@@ -1,11 +1,25 @@
 from form import SearchForm, LoginForm
 from db import BookDatabase
 
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, sessions, redirect, url_for, render_template
+from flask_login import UserMixin
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'xSWEdn&v03uj0@'
+app.secret_key = b'\xfd_W9\xd6_\xee\x0e\x18l\x88\x1fl>=\x97'
+
+
+class User(UserMixin):
+    def __init__(self, id):
+        self.database = BookDatabase
+        self.id = id
+
+        db = self.database()
+        self.name = db.get_username_by_id(id)
+        self.password = db.get_password_by_id(id)
+
+    def __repr__(self):
+        return '<{}, {}, {}>'.format(self.id, self.name, self.password)
 
 
 @app.route('/')
@@ -47,7 +61,7 @@ def search(book_name):
 @app.route('/reviews')
 def reviews():
     db = BookDatabase()
-    review_list = db.grab_review()
+    review_list = db.get_reviews()
     return render_template('reviews.html', review_list=review_list)
 
 

@@ -60,7 +60,17 @@
             <tr>
                 <td width="18%">《{{ review[0] }}》</td>
                 <td>{{ review[1] }}</td>
-                <td width="8%">{{ review[2] }}</td>
+
+                <td width="8%">
+                  <div class="ui labeled button" tabindex="0">
+  <div class="ui blue button">
+     Likes
+  </div>
+  <a class="ui basic label">
+    {{ review[2] }}
+  </a>
+</div>
+                </td>
             </tr>
         </tbody>
         {% endfor %}

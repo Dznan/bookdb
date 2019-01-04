@@ -22,9 +22,13 @@ class User(UserMixin):
         return '<{}, {}, {}>'.format(self.id, self.name, self.password)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def hello_world():
-    return 'Hello World!'
+    # return search_front()
+    form = SearchForm()
+    if form.validate_on_submit():
+        return redirect(url_for('search', book_name=form.book_name.data))
+    return render_template('index.html', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -42,7 +46,7 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route('/s', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET', 'POST'])
 def search_front():
     form = SearchForm()
     if form.validate_on_submit():

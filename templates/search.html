@@ -83,7 +83,7 @@
     <tbody>
         {% for book in book_list %}
         <tr>
-            <td> <a href="{{ book[0] }}">《{{ book[0] }}》</a> </td>
+            <td> <a href="/book%3Fbook_id%3D{{ book[2] }}">《{{ book[0] }}》</a> </td>
             <td>{{ book[1] }}</td>
         </tr>
     </tbody>

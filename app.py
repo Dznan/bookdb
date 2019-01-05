@@ -62,6 +62,14 @@ def search(book_name):
     form = SearchForm()
     return render_template('search.html', form=form, book_list=book_list, searchKey=searchKey)
 
+@app.route('/book?book_id=<book_id>')
+def book_detail(book_id):
+    db = BookDatabase()
+    searchKey=book_id
+    book_list = db.get_book_detail(book_id)
+    reviews_list = db.get_reviews_by_book_id(book_id)
+    form = SearchForm()
+    return render_template('book.html', form=form, book_list=book_list, reviews_list=reviews_list, searchKey=searchKey)
 
 @app.route('/reviews')
 def reviews():

@@ -18,10 +18,33 @@ class BookDatabase:
 
     def search_with_book_name(self, book_name):
         query = '''
-        SELECT title, author_name
+        SELECT title, author_name, books.book_id
         FROM books, author
         WHERE books.author = author_id AND title like '%{}%';
         '''.format(book_name)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
+    def get_book_detail(self, book_id):
+        query = '''
+        SELECT title,subtitle,author,image,summary,publisher, pages, binding, rating, isbn10, isbn13, series, price, pubdate, alt
+        FROM books
+        WHERE books.book_id = '{}';
+        '''.format(book_id)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
+    def get_reviews_by_book_id(self,book_id):
+        query = '''
+        SELECT user.user_name, reviews.time, content, review_likes_count.likes_num
+        FROM user, reviews, review_likes_count
+        WHERE reviews.book_id = '{}' and reviews.review_id = review_likes_count.reviews and reviews.reviewer_id = user.user_id
+        ORDER BY reviews.time desc
+        '''.format(book_id)
 
         self.cur.execute(query)
         result = self.cur.fetchall()

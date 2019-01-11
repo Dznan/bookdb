@@ -1,0 +1,37 @@
+<div class="ui pointing menu">
+    <a class="item">
+        <img src="/static/logo.png" style="height:1.5em; width: 1.5em">
+    </a>
+    <a class="{% if active == 'index' %}active{% endif %} item" href="/">
+        Home
+    </a>
+    <a class="{% if active == 'reviews' %}active{% endif %} item" href="/reviews">
+        Newest Reviews
+    </a>
+    <a class="{% if active == 'book' %}active{% endif %} item" href="/book">
+        Book
+    </a>
+    <a class="{% if active == 'search' %}active{% endif %} item">
+        Search Results
+    </a>
+
+
+    {% if active != 'index' %}
+    <div class="right menu">
+        <div class="item">
+            <form action="/search" method="post" class="ui form">
+                <div class="ui transparent icon input">
+
+                    {{ form.hidden_tag() }}
+                    <!-- <input type="text" placeholder="Search..." > -->
+                    {{ form.book_name }}
+                    <!-- {{ form.submit() }} -->
+
+
+                    <i class="search link icon"></i>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+</div>

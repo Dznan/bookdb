@@ -1,130 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" name="referrer" content="no-referrer">
-    <title>Search</title>
+  <meta charset="UTF-8" name="referrer" content="no-referrer">
+  <title>Search</title>
 </head>
 <link rel="stylesheet" type="text/css" href="static/semantic.min.css">
 
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
 <script src="static/semantic.min.js"></script>
 
 <style type="text/css">
-    body > .ui.container {
-      margin-top: 2em;
-    }
-    iframe {
-      border: none;
-      width: calc(100% + 2em);
-      margin: 0em -1em;
-      height: 300px;
-    }
-    iframe html {
-      overflow: hidden;
-    }
-    iframe body {
-      padding: 0em;
-    }
+  body>.ui.container {
+    margin-top: 2em;
+  }
 
-    .SearchForm {
-      margin: auto;
-      margin-top: 2em;
-      width: 25%;
-      align-content: center;
-    }
+  iframe {
+    border: none;
+    width: calc(100% + 2em);
+    margin: 0em -1em;
+    height: 300px;
+  }
 
-    .SearchResultForm {
-      margin: auto;
-      margin-top: 2em;
-      width: 70%;
-    }
+  iframe html {
+    overflow: hidden;
+  }
 
-    .SearchResultForm > h1 {
-      font-size: 2em;
-      text-align: left;
-      font-weight: bold;
-    }
+  iframe body {
+    padding: 0em;
+  }
 
+  .SearchForm {
+    margin: auto;
+    margin-top: 2em;
+    width: 25%;
+    align-content: center;
+  }
+
+  .SearchResultForm {
+    margin: auto;
+    margin-top: 2em;
+    width: 95%;
+  }
+
+  .SearchResultForm>h1 {
+    font-size: 2em;
+    text-align: left;
+    font-weight: bold;
+  }
 </style>
 
 <body>
 
-<div class="ui container">
-
-<div class="SearchResultForm">
-<!-- {% if searchKey %}
+  <div class="ui container">
+    {% include "menu.html" %}
+    <div class="ui segment">
+      <div class="SearchResultForm">
+        <!-- {% if searchKey %}
 <h1>关于“{{ searchKey }}”的搜索结果</h1>
 {% endif %} -->
 
-{% if book_list %}
-{% for book in book_list %} 
-<h1>《{{ book[0] }}》</h1>
-<h2 class="ui dividing header"></h2>
-<table class="ui unstackable table">
-    <thead>
-        <tr>
-            <th colspan="3">Book Details</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr><td width="10%">书名</td><td>《{{ book[0] }}》</td>
-          <!-- <td> -->
-          <td rowspan="4" width="30%" valign="top" style="overflow: =hidden;">
-          <img src="{{ book[3] }}" height="300">
-        </td>
-      </tr>
-        <tr><td>副标题</td><td>{{ book[1] }}</td><td></td></tr>
-        <tr><td>作者</td><td>{{ book[2] }}</td><td></td></tr>
-        <tr><td>简介</td><td>{{ book[4] }}</td><td></td></tr>
-        <tr><td>出版社</td><td>{{ book[5] }}</td><td></td></tr>
-        <tr><td>页数</td><td>{{ book[6] }}</td><td></td></tr>
-        <tr><td>装订</td><td>{{ book[7] }}</td><td></td></tr>
-        <tr><td>评分</td><td>{{ book[8] }} / 5.0</td><td></td></tr>
-        <tr><td>ISBN</td><td>{{ book[9] }}(ISBN13) / {{ book[10] }}(ISBN13)</td><td></td></tr>
-        <tr><td>丛书系列</td><td>{{ book[11] }}</td><td></td></tr>
-        <tr><td>价格</td><td>{{ book[12] }}</td><td></td></tr>
-        <tr><td>出版日期</td><td>{{ book[13] }}</td><td></td></tr>
-        <tr><td>豆瓣链接</td><td><a href="{{ book[14] }}">{{ book[14] }}</a></td><td></td></tr>
-    </tbody>
-</table>
+        {% if book_list %}
+        {% for book in book_list %}
+        <h1>《{{ book[0] }}》</h1>
+        <h2 class="ui dividing header"></h2>
+        <table class="ui unstackable table">
+          <thead>
+            <tr>
+              <th colspan="3">Book Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td width="10%">书名</td>
+              <td>《{{ book[0] }}》</td>
+              <!-- <td> -->
+              <td rowspan="4" width="30%" valign="top" style="overflow: =hidden;">
+                <img src="{{ book[3] }}" height="300">
+              </td>
+            </tr>
+            <tr>
+              <td>副标题</td>
+              <td>{{ book[1] }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>作者</td>
+              <td>{{ book[2] }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>简介</td>
+              <td>{{ book[4] }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>出版社</td>
+              <td>{{ book[5] }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>页数</td>
+              <td>{{ book[6] }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>装订</td>
+              <td>{{ book[7] }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>评分</td>
+              <td>{{ book[8] }} / 5.0</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>ISBN</td>
+              <td>{{ book[9] }}(ISBN13) / {{ book[10] }}(ISBN13)</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>丛书系列</td>
+              <td>{{ book[11] }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>价格</td>
+              <td>{{ book[12] }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>出版日期</td>
+              <td>{{ book[13] }}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>豆瓣链接</td>
+              <td><a href="{{ book[14] }}">{{ book[14] }}</a></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
 
-{% if reviews_list %}
-<table class="ui unstackable table">
-<thead>
-  <tr>
-    <th colspan="4">Book Reviews</th>
-  </tr>
-</thead>
-<tbody>
-  {% for review in reviews_list %}
-  <tr>
-    <td>{{ review[0] }}</td>
-    <td width="100">{{ review[1] }}</td>
-    <td>{{ review[2] }}</td>
-    <td>
-        <div class="ui labeled button" tabindex="0">
-  <div class="ui blue button">
-     Likes
+        {% if reviews_list %}
+        <table class="ui unstackable table">
+          <thead>
+            <tr>
+              <th colspan="4">Book Reviews</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for review in reviews_list %}
+            <tr>
+              <td>{{ review[0] }}</td>
+              <td width="100">{{ review[1] }}</td>
+              <td>{{ review[2] }}</td>
+              <td width='15%'>
+                <div class="ui labeled button" tabindex="0">
+                  <div class="ui blue button">
+                    <i class="heart icon"></i>
+                    Likes
+                  </div>
+                  <a class="ui basic label">
+                    {{ review[3] }}
+                  </a>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          {% endif %}
+
+        </table>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
   </div>
-  <a class="ui basic label">
-    {{ review[3] }}
-  </a>
-</div>
-    </td>
-  </tr>
-  {% endfor %}
-</tbody>
-{% endif %}
-
-</table>
-{% endfor %}
-{% endif %}
-</div>
-
-</div>
 
 </body>
+
 </html>

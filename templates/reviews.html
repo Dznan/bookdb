@@ -1,82 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Reviews Trending</title>
-<link rel="stylesheet" type="text/css" href="static/semantic.min.css">
+  <meta charset="UTF-8">
+  <title>Reviews Trending</title>
+  <link rel="stylesheet" type="text/css" href="static/semantic.min.css">
 
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<script src="static/semantic.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+  <script src="static/semantic.min.js"></script>
 
-<style type="text/css">
-    body > .ui.container {
+  <style type="text/css">
+    body>.ui.container {
       margin-top: 2em;
     }
+
     iframe {
       border: none;
       width: calc(100% + 2em);
       margin: 0em -1em;
       height: 300px;
     }
+
     iframe html {
       overflow: hidden;
     }
+
     iframe body {
       padding: 0em;
     }
 
-    .ui.container > h1 {
+    .ui.container>h1 {
       font-size: 3em;
       text-align: center;
       font-weight: normal;
     }
 
-    .ui.container > h2.dividing.header {
+    .ui.container>h2.dividing.header {
       font-size: 2em;
       font-weight: normal;
       margin: 1em 0em 1em;
     }
 
-  </style>
-</head>
-<body>
-<div class="ui container">
-    {% if review_list %}
-    <h1>最新书评 - Newest Reviews</h1>
-    <h2 class="ui dividing header"></h2>
-    <table class="ui unstackable table">
-        <thead>
-            <tr>
-                <th>Book Name</th>
-                <th>Review</th>
-                <th>Likes</th>
-            </tr>
-        </thead>
-        {% for review in review_list %}
-        <tbody>
-            <tr>
-                <td width="18%">《{{ review[0] }}》</td>
-                <td>{{ review[1] }}</td>
+    .SearchResultForm {
+      margin: auto;
+      margin-top: 2em;
+      width: 95%;
+    }
 
-                <td width="8%">
-                  <div class="ui labeled button" tabindex="0">
-  <div class="ui blue button">
-     Likes
-  </div>
-  <a class="ui basic label">
-    {{ review[2] }}
-  </a>
-</div>
-                </td>
+    .SearchResultForm>h1 {
+      font-size: 2em;
+      text-align: left;
+      font-weight: bold;
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+  <div class="ui container">
+    {% include "menu.html" %}
+    <div class="ui segment">
+      {% if review_list %}
+      <div class="SearchResultForm">
+        <h1>最新书评 - Newest Reviews</h1>
+        <h2 class="ui dividing header"></h2>
+        <table class="ui unstackable table">
+          <thead>
+            <tr>
+              <th>Book Name</th>
+              <th>Review</th>
+              <th>Likes</th>
             </tr>
-        </tbody>
-        {% endfor %}
-    </table>
-    {% endif %}
-</div>
+          </thead>
+          {% for review in review_list %}
+          <tbody>
+            <tr>
+              <td width="18%"><a href="/book%3Fbook_id%3D{{ review[3] }}">《{{ review[0] }}》</a></td>
+              <td>{{ review[1] }}</td>
+
+              <td width="15%">
+                <div class="ui labeled button" tabindex="0">
+                  <div class="ui blue button">
+                    <i class="heart icon"></i> Like
+                  </div>
+                  <a class="ui basic blue left pointing label">
+                    {{ review[2] }}
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          {% endfor %}
+        </table>
+      </div>
+      {% endif %}
+    </div>
+  </div>
 
 </body>
+
 </html>

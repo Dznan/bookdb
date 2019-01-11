@@ -28,7 +28,7 @@ def hello_world():
     form = SearchForm()
     if form.validate_on_submit():
         return redirect(url_for('search', book_name=form.book_name.data))
-    return render_template('index.html', form=form)
+    return render_template('index.html', form=form,active='index')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -51,7 +51,7 @@ def search_front():
     form = SearchForm()
     if form.validate_on_submit():
         return redirect(url_for('search', book_name=form.book_name.data))
-    return render_template('search.html', form=form)
+    return render_template('search.html', form=form, active="search")
 
 
 @app.route('/search?book_name=<book_name>')
@@ -60,7 +60,14 @@ def search(book_name):
     searchKey=book_name
     book_list = db.search_with_book_name(book_name)
     form = SearchForm()
-    return render_template('search.html', form=form, book_list=book_list, searchKey=searchKey)
+    return render_template('search.html', title='Search Result', form=form, book_list=book_list, searchKey=searchKey, active="search")
+
+@app.route('/book')
+def book_list():
+    db = BookDatabase()
+    book_list = db.get_book_list(0)
+    form = SearchForm()
+    return render_template('search.html', title='Book', form=form, book_list=book_list, searchKey=None, active="book")
 
 @app.route('/book?book_id=<book_id>')
 def book_detail(book_id):
@@ -69,13 +76,14 @@ def book_detail(book_id):
     book_list = db.get_book_detail(book_id)
     reviews_list = db.get_reviews_by_book_id(book_id)
     form = SearchForm()
-    return render_template('book.html', form=form, book_list=book_list, reviews_list=reviews_list, searchKey=searchKey)
+    return render_template('book.html', form=form, book_list=book_list, reviews_list=reviews_list, searchKey=searchKey,active="book")
 
 @app.route('/reviews')
 def reviews():
     db = BookDatabase()
     review_list = db.get_reviews()
-    return render_template('reviews.html', review_list=review_list)
+    form = SearchForm()
+    return render_template('reviews.html', form=form, review_list=review_list,active="reviews")
 
 
 if __name__ == '__main__':

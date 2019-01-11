@@ -27,6 +27,19 @@ class BookDatabase:
         result = self.cur.fetchall()
         return result
 
+    def get_book_list(self,book_range):
+        query = '''
+        SELECT title, author_name, books.book_id
+        FROM books, author
+        WHERE books.author = author_id 
+        ORDER BY books.book_id desc
+        LIMIT {},{}
+        '''.format(book_range,book_range+20)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
     def get_book_detail(self, book_id):
         query = '''
         SELECT title,subtitle,author,image,summary,publisher, pages, binding, rating, isbn10, isbn13, series, price, pubdate, alt
@@ -52,7 +65,7 @@ class BookDatabase:
 
     def get_reviews(self):
         query = '''
-        SELECT title, content, review_likes_count.likes_num
+        SELECT title, content, review_likes_count.likes_num, books.book_id
         FROM books, reviews, review_likes_count
         WHERE reviews.book_id = books.book_id and reviews.review_id = review_likes_count.reviews
         ORDER BY reviews.time desc

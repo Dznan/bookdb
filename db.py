@@ -18,7 +18,7 @@ class BookDatabase:
 
     def search_with_book_name(self, book_name):
         query = '''
-        SELECT title, author_name, books.book_id
+        SELECT books.book_id, title, author, author_name
         FROM books, author
         WHERE books.author = author_id AND title like '%{}%';
         '''.format(book_name)
@@ -29,7 +29,7 @@ class BookDatabase:
 
     def get_book_list(self,book_range):
         query = '''
-        SELECT title, author_name, books.book_id
+        SELECT books.book_id, title, author, author_name
         FROM books, author
         WHERE books.author = author_id 
         ORDER BY books.book_id desc
@@ -53,9 +53,9 @@ class BookDatabase:
 
     def get_book_detail(self, book_id):
         query = '''
-        SELECT title,subtitle,author,image,summary,publisher, pages, binding, rating, isbn10, isbn13, series, serie_name, price, pubdate, alt
-        FROM books, serie
-        WHERE books.book_id = '{}' and books.series = serie.serie_id;
+        SELECT title,subtitle,author,image,summary,publisher, pages, binding, rating, isbn10, isbn13, series, serie_name, price, pubdate, alt, author.author_name, publisher_name, rating.average 
+        FROM books, serie, author, publisher, rating
+        WHERE books.book_id = '{}' and books.series = serie.serie_id and books.author = author.author_id and books.publisher = publisher.publisher_id and rating = rating.rating_id;
         '''.format(book_id)
 
         self.cur.execute(query)

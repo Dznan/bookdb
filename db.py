@@ -40,6 +40,17 @@ class BookDatabase:
         result = self.cur.fetchall()
         return result
 
+    def get_book_list_by_author_id(self, author_id):
+        query = '''
+        SELECT book_id, title, author, summary
+        FROM books
+        WHERE author = {};
+        '''.format(author_id)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
     def get_book_detail(self, book_id):
         query = '''
         SELECT title,subtitle,author,image,summary,publisher, pages, binding, rating, isbn10, isbn13, series, serie_name, price, pubdate, alt
@@ -51,12 +62,48 @@ class BookDatabase:
         result = self.cur.fetchall()
         return result
 
+
+    def get_serie_list(self,serie_range):
+        query = '''
+        SELECT serie_id, serie_name, description, volumes
+        FROM serie 
+        ORDER BY serie.serie_id desc
+        LIMIT {},{}
+        '''.format(serie_range,serie_range+20)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
     def get_serie_detail(self, serie_id):
         query = '''
-        SELECT books.title, books.book_id, serie.serie_name, author.author_id, author.author_name
+        SELECT books.title, books.book_id, serie.serie_name, author.author_id, author.author_name, serie.volumes
         FROM serie, books, author 
         where serie.serie_id = '{}' and serie.serie_id=books.series and books.author=author.author_id;
         '''.format(serie_id)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
+    def get_author_list(self,author_range):
+        query = '''
+        SELECT author_id, author_name, author_introduction
+        FROM author 
+        ORDER BY author_id desc
+        LIMIT {},{}
+        '''.format(author_range,author_range+10)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
+    def get_author_detail(self, author_id):
+        query = '''
+        SELECT *
+        FROM author
+        where author_id = '{}';
+        '''.format(author_id)
 
         self.cur.execute(query)
         result = self.cur.fetchall()

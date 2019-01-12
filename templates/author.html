@@ -63,24 +63,20 @@
     {% include "menu.html" %}
     <div class="ui segment">
       <div class="SearchResultForm">
-
-
-        {% if serie_list %}
+        {% if author_list %}
 
         <table class="ui unstackable table" style="margin-bottom: 2em">
           <thead>
             <tr>
-              <th width="25%">Serie Name</th>
+              <th width="25%">Author Name</th>
               <th>Description</th>
-              <th width="10%">Volumes</th>
             </tr>
           </thead>
           <tbody>
-            {% for serie in serie_list %}
+            {% for author in author_list %}
             <tr>
-              <td> <a href="/serie%3Fserie_id%3D{{ serie[0] }}">《{{ serie[1] }}》</a> </td>
-              <td>{{ serie[2] }}</td>
-              <td>{{ serie[3] }}</td>
+              <td> <a href="/author%3Fauthor_id%3D{{ author[0] }}">{{ author[1] }}</a> </td>
+              <td>{{ author[2] }}</td>
             </tr>
           </tbody>
           {% endfor %}

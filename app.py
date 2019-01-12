@@ -83,16 +83,33 @@ def serie_list():
     db = BookDatabase()
     serie_list = db.get_serie_list(0)
     form = SearchForm()
-    return render_template('search.html', title='Book', form=form, serie_list=serie_list, searchKey=None, active="serie")
+    print(serie_list)
+    return render_template('serie.html', title='Serie', form=form, serie_list=serie_list, searchKey=None, active="serie")
 
 @app.route('/serie?serie_id=<serie_id>')
 def serie_detail(serie_id):
     db = BookDatabase()
     serie_list = db.get_serie_detail(serie_id)
     searchKey=serie_list[0][2]
-    volumn = len(serie_list)
+    volumes = (len(serie_list),serie_list[0][5])
     form = SearchForm()
-    return render_template('serie.html', form=form, serie_list=serie_list, searchKey=searchKey, volumn = volumn, active="serie")
+    return render_template('serie_detail.html', form=form, serie_list=serie_list, searchKey=searchKey, volumes = volumes, active="serie")
+
+@app.route('/author')
+def author_list():
+    db = BookDatabase()
+    author_list = db.get_author_list(0)
+    form = SearchForm()
+    return render_template('author.html', title='Author', form=form, author_list=author_list, searchKey=None, active="author")
+
+@app.route('/author?author_id=<author_id>')
+def author_detail(author_id):
+    db = BookDatabase()
+    author_list = db.get_author_detail(author_id)
+    book_list = db.get_book_list_by_author_id(author_id)
+    searchKey=author_list[0][1]
+    form = SearchForm()
+    return render_template('author_detail.html', form=form, author_list=author_list, book_list=book_list, searchKey=searchKey, active="author")
 
 @app.route('/reviews')
 def reviews():

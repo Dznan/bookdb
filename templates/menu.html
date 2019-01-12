@@ -14,7 +14,12 @@
     <a class="{% if active == 'search' %}active{% endif %} item">
         Search Results
     </a>
-
+    <a class="{% if active == 'serie' %}active{% endif %} item" href="/serie">
+        Serie
+    </a>
+    <a class="{% if active == 'author' %}active{% endif %} item" href="/author">
+        Author
+    </a>
 
     {% if active != 'index' %}
     <div class="right menu">

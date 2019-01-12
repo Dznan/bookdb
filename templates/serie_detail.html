@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>{{ title }}</title>
+  <title>{{ searchKey }}</title>
 </head>
 <link rel="stylesheet" type="text/css" href="static/semantic.min.css">
 
@@ -62,25 +62,30 @@
   <div class="ui container">
     {% include "menu.html" %}
     <div class="ui segment">
-      <div class="SearchResultForm">
+      <div class="SearchForm">
 
+      </div>
+
+      <div class="SearchResultForm">
+        <h1>“{{ searchKey }}”丛书系列 | 现有丛书容量 : {{ volumes[0] }} /  {{ volumes[1] }}</h1>
+        <h2 class="ui dividing header"></h2>
 
         {% if serie_list %}
 
         <table class="ui unstackable table" style="margin-bottom: 2em">
           <thead>
             <tr>
-              <th width="25%">Serie Name</th>
-              <th>Description</th>
-              <th width="10%">Volumes</th>
+              <th>Book Name</th>
+              <th>Serie</th>
+              <th>Author</th>
             </tr>
           </thead>
           <tbody>
             {% for serie in serie_list %}
             <tr>
-              <td> <a href="/serie%3Fserie_id%3D{{ serie[0] }}">《{{ serie[1] }}》</a> </td>
+              <td> <a href="/book%3Fbook_id%3D{{ serie[1] }}">《{{ serie[0] }}》</a> </td>
               <td>{{ serie[2] }}</td>
-              <td>{{ serie[3] }}</td>
+              <td> <a href="/author%3Fauthor_id%3D{{ serie[3] }}">{{ serie[4] }}</a> </td>
             </tr>
           </tbody>
           {% endfor %}
@@ -88,8 +93,7 @@
         {% endif %}
       </div>
     </div>
-  </div>
-  {% include "foot.html" %}
+    {% include "foot.html" %}
   </div>
 </body>
 

@@ -83,6 +83,7 @@ def book_detail(book_id):
     book_list = db.get_book_detail(book_id)
     reviews_list = db.get_reviews_by_book_id(book_id)
     form = SearchForm()
+    print(book_list)
     return render_template('book.html', form=form, book_list=book_list, reviews_list=reviews_list, searchKey=searchKey,active="book")
 
 @app.route('/serie')

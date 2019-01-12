@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Search</title>
+  <title>SYSU Book Database</title>
 </head>
 <link rel="stylesheet" type="text/css" href="static/semantic.min.css">
 
@@ -41,7 +41,7 @@
 
   .ref {
     margin: auto;
-    margin-top: 8em;
+    margin-top: 5em;
     width: 70%;
   }
 </style>
@@ -52,28 +52,24 @@
   <div class="ui container">
 
     {% include "menu.html" %}
-    <!-- <div class="ui segment"> -->
-
-
-    <div align="center" style="margin-top: 10%;margin-bottom: 2em;">
-      <img src="/static/logo.png" width="100" height="100">
+    <div class="ui segment">  
+      <div align="center" style="margin-top: 5%;margin-bottom: 2em;">
+        <img src="/static/logo.png" width="100" height="100">
+        <h1>SYSU Book Database</h1>
+      </div>
+      <div class="ui search" align="center">
+        <form action="/search" method="post" class="ui form">
+          {{ form.hidden_tag() }}
+          <div class="ui icon input" style="width: 40%">
+            {{ form.book_name }}
+            <i class="search icon"></i>
+          </div>
+          <button class="ui primary button">Search</button>
+          <!-- {{ form.submit() }} -->
+        </form>
+      </div>
+      {% include "foot.html" %}
     </div>
-    <div class="ui search" align="center">
-      <form action="/search" method="post" class="ui form">
-        {{ form.hidden_tag() }}
-        <div class="ui icon input" style="width: 40%">
-          {{ form.book_name }}
-          <i class="search icon"></i>
-        </div>
-
-        <button class="ui primary button">Search</button>
-        <!-- {{ form.submit() }} -->
-
-      </form>
-    </div>
-
-    <!-- </div> -->
-  {% include "foot.html" %}
   </div>
 
 

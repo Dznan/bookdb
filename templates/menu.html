@@ -1,10 +1,11 @@
 <div class="ui pointing menu">
-    <a class="item"  href="/">
+    <a class="{% if active == 'index' %}active{% endif %} item"  href="/">
         <img src="/static/logo.png" style="height:1.5em; width: 1.5em">
+        <p style="margin-left:1em">SYSU Book Database</p>
     </a>
-    <a class="{% if active == 'index' %}active{% endif %} item" href="/">
+    <!-- <a class="{% if active == 'index' %}active{% endif %} item" href="/">
         Home
-    </a>
+    </a> -->
     <a class="{% if active == 'reviews' %}active{% endif %} item" href="/reviews">
         Newest Reviews
     </a>

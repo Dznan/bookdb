@@ -79,13 +79,24 @@
             <tr>
               <th>Book Name</th>
               <th>Author</th>
+              <th>Likes</th>
             </tr>
           </thead>
           <tbody>
             {% for book in book_list %}
             <tr>
               <td><a href="/book%3Fbook_id%3D{{ book[0] }}">《{{ book[1] }}》</a> </td>
-              <td> <a href="/author%3Fauthor_id%3D{{ book[2] }}">{{ book[3] }}</a></td>
+              <td><a href="/author%3Fauthor_id%3D{{ book[2] }}">{{ book[3] }}</a></td>
+              <td width="20%">
+                <div class="ui labeled button" tabindex="0">
+                  <div class="ui blue button">
+                    <i class="heart icon"></i> Like
+                  </div>
+                  <a class="ui basic blue left pointing label">
+                    {{ book[4] }}
+                  </a>
+                </div>
+              </td>
             </tr>
           </tbody>
           {% endfor %}

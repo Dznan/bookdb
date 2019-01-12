@@ -29,10 +29,10 @@ class BookDatabase:
 
     def get_book_list(self,book_range):
         query = '''
-        SELECT books.book_id, title, author, author_name
-        FROM books, author
-        WHERE books.author = author_id 
-        ORDER BY books.book_id desc
+        SELECT books.book_id, title, author, author_name, book_likes_count.likes_num
+        FROM books, author, book_likes_count
+        WHERE books.author = author_id  and books.book_id = book_likes_count.book_id
+        ORDER BY book_likes_count.likes_num desc
         LIMIT {},{}
         '''.format(book_range,book_range+20)
 

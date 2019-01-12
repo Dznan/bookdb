@@ -1,7 +1,9 @@
 from form import SearchForm, LoginForm
 from db import BookDatabase
 
-from flask import Flask, request, sessions, redirect, url_for, render_template
+import os
+
+from flask import Flask, request, sessions, redirect, url_for, render_template, send_from_directory
 from flask_login import UserMixin
 
 
@@ -29,6 +31,11 @@ def hello_world():
     if form.validate_on_submit():
         return redirect(url_for('search', book_name=form.book_name.data))
     return render_template('index.html', form=form,active='index')
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='favicon.icon')
 
 
 @app.route('/login', methods=['GET', 'POST'])

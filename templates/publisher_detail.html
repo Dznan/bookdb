@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>{{ title }}</title>
+  <title>{{ searchKey }}</title>
 </head>
 <link rel="stylesheet" type="text/css" href="static/semantic.min.css">
 
@@ -62,34 +62,55 @@
   <div class="ui container">
     {% include "menu.html" %}
     <div class="ui segment">
+      <div class="SearchForm">
+
+      </div>
+
       <div class="SearchResultForm">
+        <h1>“{{ searchKey }}”作者</h1>
+        <h2 class="ui dividing header"></h2>
 
-
-        {% if serie_list %}
+        {% if publisher_list %}
 
         <table class="ui unstackable table" style="margin-bottom: 2em">
           <thead>
             <tr>
-              <th width="25%">Serie Name</th>
               <th>Description</th>
-              <th width="10%">Volumes</th>
             </tr>
           </thead>
           <tbody>
-            {% for serie in serie_list %}
+            {% for publisher in publisher_list %}
             <tr>
-              <td> <a href="/serie%3Fserie_id%3D{{ serie[0] }}">《{{ serie[1] }}》</a> </td>
-              <td>{{ serie[2] }}</td>
-              <td>{{ serie[3] }}</td>
+              <td>{{ publisher[2] }}</td>
             </tr>
           </tbody>
           {% endfor %}
         </table>
         {% endif %}
+
+
+        <table class="ui unstackable table" style="margin-bottom: 2em">
+          <thead>
+            <tr>
+              <th>Book Name</th>
+              <th>publisher</th>
+              <th width="70%">Summary</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for book in book_list %}
+            <tr>
+              <td> <a href="/book%3Fbook_id%3D{{ book[0] }}">《{{ book[1] }}》</a> </td>
+              <td>{{ searchKey }}</td>
+              <td>{{ book[3] }}</td>
+            </tr>
+          </tbody>
+          {% endfor %}
+        </table>
+
       </div>
     </div>
     {% include "foot.html" %}
-  </div>
   </div>
 </body>
 

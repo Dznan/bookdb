@@ -83,7 +83,6 @@ def serie_list():
     db = BookDatabase()
     serie_list = db.get_serie_list(0)
     form = SearchForm()
-    print(serie_list)
     return render_template('serie.html', title='Serie', form=form, serie_list=serie_list, searchKey=None, active="serie")
 
 @app.route('/serie?serie_id=<serie_id>')
@@ -110,6 +109,22 @@ def author_detail(author_id):
     searchKey=author_list[0][1]
     form = SearchForm()
     return render_template('author_detail.html', form=form, author_list=author_list, book_list=book_list, searchKey=searchKey, active="author")
+
+@app.route('/publisher')
+def publisher_list():
+    db = BookDatabase()
+    publisher_list = db.get_publisher_list(0)
+    form = SearchForm()
+    return render_template('publisher.html', title='Author', form=form, publisher_list=publisher_list, searchKey=None, active="publisher")
+
+@app.route('/publisher?publisher_id=<publisher_id>')
+def publisher_detail(publisher_id):
+    db = BookDatabase()
+    publisher_list = db.get_publisher_detail(publisher_id)
+    book_list = db.get_book_list_by_publisher_id(publisher_id)
+    searchKey=publisher_list[0][1]
+    form = SearchForm()
+    return render_template('publisher_detail.html', form=form, publisher_list=publisher_list, book_list=book_list, searchKey=searchKey, active="publisher")
 
 @app.route('/reviews')
 def reviews():

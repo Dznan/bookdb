@@ -51,6 +51,17 @@ class BookDatabase:
         result = self.cur.fetchall()
         return result
 
+    def get_book_list_by_publisher_id(self, publisher_id):
+        query = '''
+        SELECT book_id, title, publisher, summary
+        FROM books
+        WHERE publisher = {};
+        '''.format(publisher_id)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
     def get_book_detail(self, book_id):
         query = '''
         SELECT title,subtitle,author,image,summary,publisher, pages, binding, rating, isbn10, isbn13, series, serie_name, price, pubdate, alt, author.author_name, publisher_name, rating.average 
@@ -104,6 +115,29 @@ class BookDatabase:
         FROM author
         where author_id = '{}';
         '''.format(author_id)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
+    def get_publisher_list(self,publisher_range):
+        query = '''
+        SELECT publisher_id, publisher_name, publisher_introduction
+        FROM publisher 
+        ORDER BY publisher_id desc
+        LIMIT {},{}
+        '''.format(publisher_range,publisher_range+20)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
+    def get_publisher_detail(self, publisher_id):
+        query = '''
+        SELECT *
+        FROM publisher
+        where publisher_id = '{}';
+        '''.format(publisher_id)
 
         self.cur.execute(query)
         result = self.cur.fetchall()

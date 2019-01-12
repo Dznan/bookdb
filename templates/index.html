@@ -38,6 +38,12 @@
     margin-bottom: 10%;
     position: relative;
   }
+
+  .ref {
+    margin: auto;
+    margin-top: 8em;
+    width: 70%;
+  }
 </style>
 
 <body>
@@ -59,14 +65,17 @@
           {{ form.book_name }}
           <i class="search icon"></i>
         </div>
+
+        <button class="ui primary button">Search</button>
         <!-- {{ form.submit() }} -->
 
       </form>
     </div>
 
-    <p></p>
     <!-- </div> -->
+  {% include "foot.html" %}
   </div>
+
 
 </body>
 

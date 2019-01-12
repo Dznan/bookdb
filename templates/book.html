@@ -49,6 +49,12 @@
     text-align: left;
     font-weight: bold;
   }
+
+  .ref {
+    margin: auto;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
 </style>
 
 <body>
@@ -57,10 +63,6 @@
     {% include "menu.html" %}
     <div class="ui segment">
       <div class="SearchResultForm">
-        <!-- {% if searchKey %}
-<h1>关于“{{ searchKey }}”的搜索结果</h1>
-{% endif %} -->
-
         {% if book_list %}
         {% for book in book_list %}
         <h1>《{{ book[0] }}》</h1>
@@ -122,22 +124,22 @@
             </tr>
             <tr>
               <td>丛书系列</td>
-              <td>{{ book[11] }}</td>
+              <td><a href="/serie%3Fserie_id%3D{{ book[11] }}">{{ book[12] }}</a></td>
               <td></td>
             </tr>
             <tr>
               <td>价格</td>
-              <td>{{ book[12] }}</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>出版日期</td>
               <td>{{ book[13] }}</td>
               <td></td>
             </tr>
             <tr>
+              <td>出版日期</td>
+              <td>{{ book[14] }}</td>
+              <td></td>
+            </tr>
+            <tr>
               <td>豆瓣链接</td>
-              <td><a href="{{ book[14] }}">{{ book[14] }}</a></td>
+              <td><a href="{{ book[15] }}">{{ book[15] }}</a></td>
               <td></td>
             </tr>
           </tbody>
@@ -177,6 +179,8 @@
         {% endif %}
       </div>
     </div>
+
+    {% include "foot.html" %}
   </div>
 
 </body>

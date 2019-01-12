@@ -42,10 +42,21 @@ class BookDatabase:
 
     def get_book_detail(self, book_id):
         query = '''
-        SELECT title,subtitle,author,image,summary,publisher, pages, binding, rating, isbn10, isbn13, series, price, pubdate, alt
-        FROM books
-        WHERE books.book_id = '{}';
+        SELECT title,subtitle,author,image,summary,publisher, pages, binding, rating, isbn10, isbn13, series, serie_name, price, pubdate, alt
+        FROM books, serie
+        WHERE books.book_id = '{}' and books.series = serie.serie_id;
         '''.format(book_id)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
+    def get_serie_detail(self, serie_id):
+        query = '''
+        SELECT books.title, books.book_id, serie.serie_name, author.author_id, author.author_name
+        FROM serie, books, author 
+        where serie.serie_id = '{}' and serie.serie_id=books.series and books.author=author.author_id;
+        '''.format(serie_id)
 
         self.cur.execute(query)
         result = self.cur.fetchall()

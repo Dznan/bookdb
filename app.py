@@ -78,6 +78,22 @@ def book_detail(book_id):
     form = SearchForm()
     return render_template('book.html', form=form, book_list=book_list, reviews_list=reviews_list, searchKey=searchKey,active="book")
 
+@app.route('/serie')
+def serie_list():
+    db = BookDatabase()
+    serie_list = db.get_serie_list(0)
+    form = SearchForm()
+    return render_template('search.html', title='Book', form=form, serie_list=serie_list, searchKey=None, active="serie")
+
+@app.route('/serie?serie_id=<serie_id>')
+def serie_detail(serie_id):
+    db = BookDatabase()
+    serie_list = db.get_serie_detail(serie_id)
+    searchKey=serie_list[0][2]
+    volumn = len(serie_list)
+    form = SearchForm()
+    return render_template('serie.html', form=form, serie_list=serie_list, searchKey=searchKey, volumn = volumn, active="serie")
+
 @app.route('/reviews')
 def reviews():
     db = BookDatabase()

@@ -67,25 +67,25 @@
       </div>
 
       <div class="SearchResultForm">
-        {% if searchKey %}
-        <h1>关于“{{ searchKey }}”的搜索结果</h1>
+        <h1>“{{ searchKey }}”丛书系列 | 丛书容量 : {{ volumn }}</h1>
         <h2 class="ui dividing header"></h2>
-        {% endif %}
 
-        {% if book_list %}
+        {% if serie_list %}
 
         <table class="ui unstackable table" style="margin-bottom: 2em">
           <thead>
             <tr>
               <th>Book Name</th>
+              <th>Serie</th>
               <th>Author</th>
             </tr>
           </thead>
           <tbody>
-            {% for book in book_list %}
+            {% for serie in serie_list %}
             <tr>
-              <td> <a href="/book%3Fbook_id%3D{{ book[2] }}">《{{ book[0] }}》</a> </td>
-              <td>{{ book[1] }}</td>
+              <td> <a href="/book%3Fbook_id%3D{{ serie[1] }}">《{{ serie[0] }}》</a> </td>
+              <td>{{ serie[2] }}</td>
+              <td> <a href="/author%3Fauthor_id%3D{{ serie[3] }}">{{ serie[4] }}</a> </td>
             </tr>
           </tbody>
           {% endfor %}

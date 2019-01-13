@@ -4,24 +4,43 @@ from db import BookDatabase
 import os
 
 from flask import Flask, request, sessions, redirect, url_for, render_template, send_from_directory
-from flask_login import UserMixin
+from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user
 
 
 app = Flask(__name__)
 app.secret_key = b'\xfd_W9\xd6_\xee\x0e\x18l\x88\x1fl>=\x97'
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+
+# class User(UserMixin):
+#     def __init__(self, id):
+#         self.database = BookDatabase
+#         self.id = id
+#
+#         db = self.database()
+#         self.name = db.get_username_by_id(id)
+#         self.password = db.get_password_by_id(id)
+#
+#     def __repr__(self):
+#         return '<{}, {}, {}>'.format(self.id, self.name, self.password)
 
 class User(UserMixin):
-    def __init__(self, id):
-        self.database = BookDatabase
+    def __init__(self, id, username, password):
         self.id = id
-
-        db = self.database()
-        self.name = db.get_username_by_id(id)
-        self.password = db.get_password_by_id(id)
+        self.username = username
+        self.password = password
 
     def __repr__(self):
-        return '<{}, {}, {}>'.format(self.id, self.name, self.password)
+        return '<{}, {}, {}>'.format(self.id, self.username, self.password)
+
+
+@app.route('/home', methods=['GET'])
+@login_required
+def home():
+    return 'Hello! Welcome to Home Page!'
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -45,12 +64,35 @@ def login():
         submit_form = request.form
         username = submit_form['username']
         password = submit_form['password']
+        if username == password:
+            user = User(1, username, password)
+            login_user(user)
+            return redirect(url_for('home'))
+        else:
+            return redirect(url_for('login'))
+        '''
+        # ========================================
+        #          validate user's login
+        # ========================================        
         db = BookDatabase()
         if db.validate_login(username, password):
             return redirect(url_for('reviews'))
         else:
             return redirect(url_for('login'))
+        '''
     return render_template('login.html', form=form)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return "Logout"
+
+
+@login_manager.user_loader
+def load_user(username):
+    return User(1, username, username)
 
 
 @app.route('/search', methods=['GET', 'POST'])

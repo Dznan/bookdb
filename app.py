@@ -24,18 +24,6 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 
-# class User(UserMixin):
-#     def __init__(self, id):
-#         self.database = BookDatabase
-#         self.id = id
-#
-#         db = self.database()
-#         self.name = db.get_username_by_id(id)
-#         self.password = db.get_password_by_id(id)
-#
-#     def __repr__(self):
-#         return '<{}, {}, {}>'.format(self.id, self.name, self.password)
-
 class User(UserMixin):
     def __init__(self, id, username, password):
         self.id = id
@@ -54,7 +42,6 @@ def home():
 
 @app.route('/', methods=['GET', 'POST'])
 def hello_world():
-    # return search_front()
     form = SearchForm()
     if form.validate_on_submit():
         return redirect(url_for('search', book_name=form.book_name.data))
@@ -75,14 +62,6 @@ def login():
         submit_form = request.form
         username = submit_form['username']
         password = submit_form['password']
-        '''
-        if username == password:
-            user = User(1, username, password)
-            login_user(user)
-            return redirect(url_for('home'))
-        else:
-            return redirect(url_for('login'))
-        '''
         # ========================================
         #          validate user's login
         # ========================================        

@@ -1,9 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-# import sys
-# reload (sys)
-# sys.setdefaultencoding('utf8')
-
 from form import SearchForm, LoginForm
 from db import BookDatabase
 
@@ -11,6 +7,14 @@ import os
 
 from flask import Flask, request, sessions, redirect, url_for, render_template, send_from_directory
 from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user
+
+import six
+
+if six.PY2:
+    import sys
+    reload(sys)
+    sys.setdefaultencoding('utf8')
+
 
 app = Flask(__name__)
 app.secret_key = b'\xfd_W9\xd6_\xee\x0e\x18l\x88\x1fl>=\x97'

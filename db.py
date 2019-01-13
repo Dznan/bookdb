@@ -207,3 +207,27 @@ class BookDatabase:
         elif result[0] != password:
             return "Wrong Password"
         return result[0] == password
+
+    def get_user_info_by_username(self, username):
+        query = '''
+        SELECT user_id, user_name, password
+        FROM user
+        WHERE user_name = \'{}\'
+        '''.format(username)
+
+        self.cur.execute(query)
+        result = self.cur.fetchone()
+
+        return result
+
+    def get_user_info_by_id(self, id):
+        query = '''
+        SELECT user_id, user_name, password
+        FROM user
+        WHERE user_id = \'{}\'
+        '''.format(id)
+
+        self.cur.execute(query)
+        result = self.cur.fetchone()
+
+        return result

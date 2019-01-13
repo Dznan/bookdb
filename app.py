@@ -59,8 +59,9 @@ def favicon():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
+    loginForm = LoginForm()
+    searchForm = SearchForm()
+    if loginForm.validate_on_submit():
         submit_form = request.form
         username = submit_form['username']
         password = submit_form['password']
@@ -80,7 +81,7 @@ def login():
         else:
             return redirect(url_for('login'))
         '''
-    return render_template('login.html', form=form)
+    return render_template('login.html', loginform=loginForm, form=searchForm, active='login')
 
 
 @app.route('/logout')

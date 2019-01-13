@@ -1,47 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-<link rel="stylesheet" type="text/css" href="static/semantic.min.css">
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="static/semantic.min.css">
 
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<script src="static/semantic.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+  <script src="static/semantic.min.js"></script>
 
-<style type="text/css">
+  <style type="text/css">
+    body>.ui.container {
+      margin-top: 2em;
+    }
+
+    iframe {
+      border: none;
+      width: calc(100% + 2em);
+      margin: 0em -1em;
+      height: 300px;
+    }
+
+    iframe html {
+      overflow: hidden;
+    }
+
+    iframe body {
+      padding: 0em;
+    }
+
+    .ui.container>h1 {
+      font-size: 3em;
+      text-align: center;
+      font-weight: normal;
+    }
+
+    .ui.container>h2.dividing.header {
+      font-size: 2em;
+      font-weight: normal;
+      margin: 1em 0em 1em;
+    }
+
+    .SearchResultForm {
+      margin: auto;
+      margin-top: 2em;
+      width: 95%;
+    }
+
+    .SearchResultForm>h1 {
+      font-size: 2em;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .ref {
+      margin: auto;
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
+
     .LoginForm {
       margin: auto;
       margin-top: 2em;
-      width: 25%;
+      width: 35%;
       align-content: center;
     }
-</style>
-
+  </style>
 </head>
+
 <body>
 
-<div class="main ui container">
-<div class="LoginForm">
-  <form action="/login" method="post" class="ui form" >
-      {{ form.hidden_tag() }}
-      <p align="center">
-      	<div class="field">
-  	    	<label>用户名</label>
-  	        {{ form.username }}
-  	  	</div>
-          <div class="field">
-  	    	<label>密码</label>
-  	        {{ form.password }}
-  	  	</div>
-          <!-- {{ form.login() }} -->
-      </p>
-      <button class="ui primary button" type="submit">Login</button>
-  </form>
-</div>
-</div>
 
+  <div class="ui container">
+    {% include "menu.html" %}
+    <div class="ui segment">
+        
+
+      <div class="LoginForm">
+          <h2 class="ui black image header">
+              <img src="/static/logo.png" class="image">
+              <div class="content">
+                SYSU BOOK DATABASE
+              </div>
+            </h2>
+        <form action="/login" method="post" class="ui form">
+          {{ loginform.hidden_tag() }}
+          <p align="center">
+            <div class="field">
+              <label>用户名</label>
+              {{ loginform.username }}
+            </div>
+            <div class="field">
+              <label>密码</label>
+              {{ loginform.password }}
+            </div>
+            <!-- {{ loginform.login() }} -->
+          </p>
+          <button class="ui primary button" type="submit">Login</button>
+        </form>
+      </div>
+      {% include "foot.html" %}
+    </div>
+  </div>
 </body>
+
 </html>

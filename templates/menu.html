@@ -1,11 +1,8 @@
 <div class="ui pointing menu">
-    <a class="{% if active == 'index' %}active{% endif %} item"  href="/">
+    <a class="{% if active == 'index' %}active{% endif %} item" href="/">
         <img src="/static/logo.png" style="height:1.5em; width: 1.5em">
         <p style="margin-left:1em">SYSU Book Database</p>
     </a>
-    <!-- <a class="{% if active == 'index' %}active{% endif %} item" href="/">
-        Home
-    </a> -->
     <a class="{% if active == 'reviews' %}active{% endif %} item" href="/reviews">
         Newest Reviews
     </a>
@@ -18,28 +15,24 @@
     <a class="{% if active == 'publisher' %}active{% endif %} item" href="/publisher">
         Publisher
     </a>
-    <!-- <a class="{% if active == 'search' %}active{% endif %} item"> -->
-        <!-- Search Results -->
-    <!-- </a> -->
+
     <a class="{% if active == 'serie' %}active{% endif %} item" href="/serie">
         Serie
     </a>
-    {% if active != 'index' %}
     <div class="right menu">
-        <div class="item">
+        {% if active != 'index' %}
+        <a class="item">
             <form action="/search" method="post" class="ui form">
                 <div class="ui transparent icon input">
-
                     {{ form.hidden_tag() }}
-                    <!-- <input type="text" placeholder="Search..." > -->
                     {{ form.book_name }}
                     <!-- {{ form.submit() }} -->
-
-
                     <i class="search link icon"></i>
                 </div>
             </form>
-        </div>
+        </a>
+        {% endif %}
+        <a class="{% if active == 'login' %}active{% endif %} item" href="/home">Home</a>
     </div>
-    {% endif %}
+
 </div>

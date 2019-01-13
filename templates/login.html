@@ -75,15 +75,15 @@
   <div class="ui container">
     {% include "menu.html" %}
     <div class="ui segment">
-        
+
 
       <div class="LoginForm">
-          <h2 class="ui black image header">
-              <img src="/static/logo.png" class="image">
-              <div class="content">
-                SYSU BOOK DATABASE
-              </div>
-            </h2>
+        <h2 class="ui black image header">
+          <img src="/static/logo.png" class="image">
+          <div class="content">
+            SYSU BOOK DATABASE
+          </div>
+        </h2>
         <form action="/login" method="post" class="ui form">
           {{ loginform.hidden_tag() }}
           <p align="center">
@@ -99,6 +99,11 @@
           </p>
           <button class="ui primary button" type="submit">Login</button>
         </form>
+        {% if state != True %}
+          <div class="ui error message">
+            {{ state }}
+          </div>
+          {% endif %}
       </div>
       {% include "foot.html" %}
     </div>

@@ -201,5 +201,9 @@ class BookDatabase:
 
         self.cur.execute(query)
         result = self.cur.fetchone()
-
+        
+        if result == None:
+            return "No Such Username"
+        elif result[0] != password:
+            return "Wrong Password"
         return result[0] == password

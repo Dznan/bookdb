@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 
 import sys
-reload (sys)
-sys.setdefaultencoding('utf8')
+# reload (sys)
+# sys.setdefaultencoding('utf8')
 
 from form import SearchForm, LoginForm
 from db import BookDatabase
@@ -67,10 +67,12 @@ def favicon():
 def login():
     loginForm = LoginForm()
     searchForm = SearchForm()
+    state = True
     if loginForm.validate_on_submit():
         submit_form = request.form
         username = submit_form['username']
         password = submit_form['password']
+        '''
         if username == password:
             user = User(1, username, password)
             login_user(user)
@@ -81,13 +83,12 @@ def login():
         # ========================================
         #          validate user's login
         # ========================================        
+        print(username,password)
         db = BookDatabase()
-        if db.validate_login(username, password):
+        state = db.validate_login(username, password)
+        if state == True:
             return redirect(url_for('reviews'))
-        else:
-            return redirect(url_for('login'))
-        '''
-    return render_template('login.html', loginform=loginForm, form=searchForm, active='login')
+    return render_template('login.html', loginform=loginForm, form=searchForm, state=state, active='login')
 
 
 @app.route('/logout')

@@ -18,9 +18,9 @@ class BookDatabase:
 
     def search_with_book_name(self, book_name):
         query = '''
-        SELECT books.book_id, title, author, author_name
-        FROM books, author
-        WHERE books.author = author_id AND title like '%{}%';
+        SELECT books.book_id, title, author, author_name, book_likes_count.likes_num
+        FROM books, author, book_likes_count
+        WHERE books.author = author_id AND title like '%{}%' AND books.book_id = book_likes_count.book_id
         '''.format(book_name)
 
         self.cur.execute(query)

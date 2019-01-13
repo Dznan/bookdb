@@ -1,3 +1,9 @@
+# -*- coding: UTF-8 -*-
+
+import sys
+reload (sys)
+sys.setdefaultencoding('utf8')
+
 from form import SearchForm, LoginForm
 from db import BookDatabase
 

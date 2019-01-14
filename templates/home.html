@@ -82,10 +82,14 @@
               <td>密码</td>
               <td>{{ user.password }}</td>
             </tr>
+            <tr>
+              <td colspan="2">
+                <a href="/logout" class="negative ui button">Log Out</a>
+              </td>
+            </tr>
           </tbody>
         </table>
 
-        {% if reviews_list %}
         <table class="ui unstackable table">
           <thead>
             <tr>
@@ -104,13 +108,13 @@
               <td width='150'><a href="/book%3Fbook_id%3D{{ review[4] }}">《{{ review[0] }}》</a></td>
               <td width="100">{{ review[1] }}</td>
               <td>{{ review[2] }}</td>
-              <td width='18%'>
+              <td width='20%'>
                 <div class="ui labeled button" tabindex="0">
                   <div class="ui blue button">
                     <i class="heart icon"></i>
                     Likes
                   </div>
-                  <a class="ui basic label">
+                  <a class="ui basic blue left pointing label">
                     {{ review[3] }}
                   </a>
                 </div>
@@ -118,9 +122,6 @@
             </tr>
             {% endfor %}
           </tbody>
-          {% endif %}
-
-          {% if book_list %}
 
           <table class="ui unstackable table" style="margin-bottom: 2em">
             <thead>
@@ -138,7 +139,8 @@
                 <td width="20%">
                   <div class="ui labeled button" tabindex="0">
                     <div class="ui blue button">
-                      <i class="heart icon"></i> Like
+                      <i class="heart icon"></i>
+                      Likes
                     </div>
                     <a class="ui basic blue left pointing label">
                       {{ book[4] }}
@@ -146,10 +148,9 @@
                   </div>
                 </td>
               </tr>
+              {% endfor %}
             </tbody>
-            {% endfor %}
           </table>
-          {% endif %}
 
       </div>
     </div>

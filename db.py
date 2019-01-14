@@ -31,7 +31,7 @@ class BookDatabase:
         query = '''
         SELECT books.book_id, title, author, author_name, book_likes_count.likes_num
         FROM books, author, book_likes_count
-        WHERE books.author = author_id  and books.book_id = book_likes_count.book_id
+        WHERE books.author = author_id and books.book_id = book_likes_count.book_id
         ORDER BY book_likes_count.likes_num desc
         LIMIT {},{}
         '''.format(book_range,book_range+20)
@@ -42,9 +42,9 @@ class BookDatabase:
 
     def get_book_list_by_author_id(self, author_id):
         query = '''
-        SELECT book_id, title, author, summary
-        FROM books
-        WHERE author = {};
+        SELECT books.book_id, title, author, summary, book_likes_count.likes_num
+        FROM books, book_likes_count
+        WHERE author = {} and books.book_id = book_likes_count.book_id;
         '''.format(author_id)
 
         self.cur.execute(query)

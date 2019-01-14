@@ -71,13 +71,13 @@ def login():
         # ========================================        
         db = BookDatabase()
         state = db.validate_login(username, password)
-        print(username)
+        # print(username)
         if state:
             user_id, _, _ = db.get_user_info_by_username(username)
-            print(user_id)
+            # print(user_id)
             user = User(user_id, username, password)
             login_user(user)
-            return redirect(url_for('/home'))
+            return redirect(url_for('home'))
     return render_template('login.html', loginform=loginForm, form=searchForm, state=state, active='login')
 
 
@@ -85,7 +85,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return "Logout"
+    return redirect(url_for('home'))
 
 
 @login_manager.user_loader
@@ -130,7 +130,7 @@ def book_detail(book_id):
     book_list = db.get_book_detail(book_id)
     reviews_list = db.get_reviews_by_book_id(book_id)
     form = SearchForm()
-    print(book_list)
+    # print(book_list)
     return render_template('book.html', form=form, book_list=book_list, reviews_list=reviews_list, searchKey=searchKey,
                            active="book")
 

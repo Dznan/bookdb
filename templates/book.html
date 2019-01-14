@@ -142,7 +142,7 @@
         </table>
 
         {% if current_user.is_authenticated %}
-        <h2>Write Your Reivew Now!</h2>
+        <h2>Write Your Review Now!</h2>
         <form class="ui reply form" method="post" align='right'>
           <div class="field">
             {{ reviewForm.hidden_tag() }}
@@ -154,7 +154,7 @@
           </button>
         </form>
         {% else %}
-        <h2>You Can Write Your Reivew After Login!</h2>
+        <h2>You Can Write Your Review After Login!</h2>
         <form class="ui reply form" method="post" align='right'>
           <!-- <form action="/search" method="post" class="ui form"> -->
           <div class="field">

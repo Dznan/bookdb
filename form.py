@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length
 
 
@@ -13,6 +13,15 @@ class SearchForm(FlaskForm):
                             )
     submit = SubmitField('Search')
 
+class ReviewForm(FlaskForm):
+    review_content = TextAreaField('Review Content',
+                            validators=[
+                                DataRequired(message='It can\' be empty!'),
+                                Length(1, 1000)
+                            ],
+                            render_kw={'placeholder': 'Enter Your Review of the Book...'}
+                            )
+    submit = SubmitField('Submit')
 
 class LoginForm(FlaskForm):
     username = StringField('Username',

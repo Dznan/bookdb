@@ -95,7 +95,7 @@
             </tr>
             <tr>
               <td>出版社</td>
-              <td><a  href="/publisher%3Fpublisher_id%3D{{ book[5] }}">{{ book[17] }}</a></td>
+              <td><a href="/publisher%3Fpublisher_id%3D{{ book[5] }}">{{ book[17] }}</a></td>
               <td></td>
             </tr>
             <tr>
@@ -110,7 +110,7 @@
             </tr>
             <tr>
               <td>评分</td>
-              <td><a  href="/publisher%3Fpublisher_id%3D{{ book[8] }}">{{ book[18] }} / 10.0</a></td>
+              <td><a href="/publisher%3Fpublisher_id%3D{{ book[8] }}">{{ book[18] }} / 10.0</a></td>
               <td></td>
             </tr>
             <tr>
@@ -141,6 +141,35 @@
           </tbody>
         </table>
 
+        {% if current_user.is_authenticated %}
+        <h2>Write Your Reivew Now!</h2>
+        <form class="ui reply form" method="post" align='right'>
+          <div class="field">
+            {{ reviewForm.hidden_tag() }}
+            {{ reviewForm.review_content(rows=10) }}
+            <!-- <textarea></textarea> -->
+          </div>
+          <button class="ui blue labeled submit icon button" type="submit">
+            <i class="icon edit"></i>Add Review!
+          </button>
+        </form>
+        {% else %}
+        <h2>You Can Write Your Reivew After Login!</h2>
+        <form class="ui reply form" method="post" align='right'>
+        <!-- <form action="/search" method="post" class="ui form"> -->
+          <div class="field">
+            {{ reviewForm.hidden_tag() }}
+            {{ reviewForm.review_content(rows=10) }}
+            <!-- <textarea></textarea> -->
+          </div>
+          <button class="ui blue disabled labeled submit icon button">
+            <i class="icon edit"></i>Add Review!
+          </button>
+          {{ reviewForm.submit() }}
+
+        </form>
+        {% endif %}
+
         {% if reviews_list %}
         <table class="ui unstackable table">
           <thead>
@@ -148,10 +177,10 @@
               <th colspan="4">Book Reviews</th>
             </tr>
             <tr>
-                <th>Book</th>
-                <th>Time</th>
-                <th>Content</th>
-                <th>Likes</th>
+              <th>Book</th>
+              <th>Time</th>
+              <th>Content</th>
+              <th>Likes</th>
             </tr>
           </thead>
           <tbody>

@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from form import SearchForm, LoginForm
+from form import SearchForm, LoginForm, ReviewForm
 from db import BookDatabase
 
 import os
@@ -32,6 +32,9 @@ class User(UserMixin):
 
     def __repr__(self):
         return '<{}, {}, {}>'.format(self.id, self.username, self.password)
+
+    def is_authenticated(self):
+        return True
 
 
 @app.route('/home', methods=['GET'])
@@ -123,15 +126,18 @@ def book_list():
     return render_template('search.html', title='Book', form=form, book_list=book_list, searchKey=None, active="book")
 
 
-@app.route('/book?book_id=<book_id>')
+@app.route('/book?book_id=<book_id>', methods=['GET', 'POST'])
 def book_detail(book_id):
     db = BookDatabase()
     searchKey = book_id
     book_list = db.get_book_detail(book_id)
     reviews_list = db.get_reviews_by_book_id(book_id)
     form = SearchForm()
-    # print(book_list)
-    return render_template('book.html', form=form, book_list=book_list, reviews_list=reviews_list, searchKey=searchKey,
+    reviewForm = ReviewForm()
+    if reviewForm.validate_on_submit():
+        db.insert_reivews(current_user.id, book_id, reviewForm.review_content.data)
+        return redirect('/book%3Fbook_id%3D{}'.format(book_id))
+    return render_template('book.html', form=form, reviewForm = reviewForm, book_list=book_list, reviews_list=reviews_list, searchKey=searchKey,
                            active="book")
 
 

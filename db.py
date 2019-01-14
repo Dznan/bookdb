@@ -178,6 +178,18 @@ class BookDatabase:
         result = self.cur.fetchall()
         return result
 
+    def insert_reivews(self, user_id, book_id, content):
+        query = '''
+        INSERT INTO reviews (reviewer_id, book_id, content)
+        VALUES ({}, '{}', '{}');
+        '''.format(user_id, book_id, content)
+
+        self.cur.execute(query)
+        self.con.commit()
+        print(query)
+        # result = self.cur.fetchall()
+        # return result
+
     def get_reviews(self):
         query = '''
         SELECT title, content, review_likes_count.likes_num, books.book_id

@@ -37,7 +37,11 @@ class User(UserMixin):
 @app.route('/home', methods=['GET'])
 @login_required
 def home():
-    return 'Hello {}! Welcome to Home Page!'.format(current_user)
+    searchForm = SearchForm()
+    db = BookDatabase()
+    reviews_list = db.get_reviews_by_user_id(current_user.id)
+    book_list = db.get_book_list_by_like_user_id(current_user.id)
+    return render_template('home.html', user=current_user, reviews_list=reviews_list, book_list=book_list, form=searchForm, active='home')
 
 
 @app.route('/', methods=['GET', 'POST'])

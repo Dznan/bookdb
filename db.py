@@ -62,6 +62,17 @@ class BookDatabase:
         result = self.cur.fetchall()
         return result
 
+    def get_book_list_by_like_user_id(self, user_id):
+        query = '''
+        SELECT books.book_id, books.title, author, author_name, book_likes_count.likes_num
+        FROM book_likes, books, author, book_likes_count
+        WHERE book_likes.liker_id = {} and book_likes.book_id = books.book_id and books.author = author.author_id and books.book_id = book_likes_count.book_id
+        '''.format(user_id)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
     def get_book_detail(self, book_id):
         query = '''
         SELECT title,subtitle,author,image,summary,publisher, pages, binding, rating, isbn10, isbn13, series, serie_name, price, pubdate, alt, author.author_name, publisher_name, rating.average 
@@ -150,6 +161,18 @@ class BookDatabase:
         WHERE reviews.book_id = '{}' and reviews.review_id = review_likes_count.reviews and reviews.reviewer_id = user.user_id
         ORDER BY reviews.time desc
         '''.format(book_id)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
+    def get_reviews_by_user_id(self,user_id):
+        query = '''
+        SELECT books.title, reviews.time, content, review_likes_count.likes_num
+        FROM books, reviews, review_likes_count
+        WHERE reviews.reviewer_id = '{}' and books.book_id = reviews.book_id and  reviews.review_id = review_likes_count.reviews
+        ORDER BY reviews.time desc
+        '''.format(user_id)
 
         self.cur.execute(query)
         result = self.cur.fetchall()

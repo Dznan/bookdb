@@ -137,7 +137,7 @@ def book_detail(book_id):
     if reviewForm.validate_on_submit():
         db.insert_reivews(current_user.id, book_id, reviewForm.review_content.data)
         return redirect('/book%3Fbook_id%3D{}'.format(book_id))
-    return render_template('book.html', form=form, reviewForm = reviewForm, book_list=book_list, reviews_list=reviews_list, searchKey=searchKey,
+    return render_template('book.html', form=form, reviewForm = reviewForm, book_list=book_list, reviews_list=reviews_list, searchKey=searchKey, book_id=book_id,
                            active="book")
 
 
@@ -208,6 +208,12 @@ def reviews():
     form = SearchForm()
     return render_template('reviews.html', form=form, review_list=review_list, active="reviews")
 
+@app.route('/delete?review_id=<review_id>&book_id=<book_id>')
+@login_required
+def delete_review(review_id,book_id):
+    db = BookDatabase()
+    db.delete_review(review_id)
+    return redirect('/book%3Fbook_id%3D{}'.format(book_id))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', threaded=True)

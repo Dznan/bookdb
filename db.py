@@ -156,7 +156,7 @@ class BookDatabase:
 
     def get_reviews_by_book_id(self,book_id):
         query = '''
-        SELECT user.user_name, reviews.time, content, review_likes_count.likes_num
+        SELECT user.user_name, reviews.time, content, review_likes_count.likes_num, user.user_id, reviews.review_id
         FROM user, reviews, review_likes_count
         WHERE reviews.book_id = '{}' and reviews.review_id = review_likes_count.reviews and reviews.reviewer_id = user.user_id
         ORDER BY reviews.time desc
@@ -186,7 +186,6 @@ class BookDatabase:
 
         self.cur.execute(query)
         self.con.commit()
-        print(query)
         # result = self.cur.fetchall()
         # return result
 
@@ -266,3 +265,12 @@ class BookDatabase:
         result = self.cur.fetchone()
 
         return result
+
+    def delete_review(self, review_id):
+        query = '''
+        DELETE FROM reviews
+        WHERE review_id = {};
+        '''.format(review_id)
+
+        self.cur.execute(query)
+        self.con.commit()

@@ -156,7 +156,7 @@
         {% else %}
         <h2>You Can Write Your Reivew After Login!</h2>
         <form class="ui reply form" method="post" align='right'>
-        <!-- <form action="/search" method="post" class="ui form"> -->
+          <!-- <form action="/search" method="post" class="ui form"> -->
           <div class="field">
             {{ reviewForm.hidden_tag() }}
             {{ reviewForm.review_content(rows=10) }}
@@ -199,6 +199,9 @@
                     {{ review[3] }}
                   </a>
                 </div>
+                {% if review[4] == current_user.id %}
+                  <a class="negative ui button" style="margin-top:1em" href="/delete%3Freview_id%3D{{ review[5] }}%26book_id%3D{{ book_id }}">Delete</a>
+                {% endif %}
               </td>
             </tr>
             {% endfor %}

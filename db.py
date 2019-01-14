@@ -168,7 +168,7 @@ class BookDatabase:
 
     def get_reviews_by_user_id(self,user_id):
         query = '''
-        SELECT books.title, reviews.time, content, review_likes_count.likes_num
+        SELECT books.title, reviews.time, content, review_likes_count.likes_num, books.book_id
         FROM books, reviews, review_likes_count
         WHERE reviews.reviewer_id = '{}' and books.book_id = reviews.book_id and  reviews.review_id = review_likes_count.reviews
         ORDER BY reviews.time desc

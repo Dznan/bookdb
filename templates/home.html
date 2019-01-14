@@ -91,11 +91,17 @@
             <tr>
               <th colspan="4">Book Reviews by You</th>
             </tr>
+            <tr>
+                <th>Book</th>
+                <th>Time</th>
+                <th>Content</th>
+                <th>Likes</th>
+            </tr>
           </thead>
           <tbody>
             {% for review in reviews_list %}
             <tr>
-              <td width='100'>{{ review[0] }}</td>
+              <td width='150'><a href="/book%3Fbook_id%3D{{ review[4] }}">《{{ review[0] }}》</a></td>
               <td width="100">{{ review[1] }}</td>
               <td>{{ review[2] }}</td>
               <td width='18%'>

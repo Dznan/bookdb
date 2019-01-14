@@ -77,7 +77,7 @@ def login():
             print(user_id)
             user = User(user_id, username, password)
             login_user(user)
-            return redirect(url_for('reviews'))
+            return redirect(url_for('/home'))
     return render_template('login.html', loginform=loginForm, form=searchForm, state=state, active='login')
 
 

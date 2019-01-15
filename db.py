@@ -266,11 +266,11 @@ class BookDatabase:
 
         return result
 
-    def delete_review(self, review_id):
+    def delete_review(self, review_id,reviewer_id):
         query = '''
         DELETE FROM reviews
-        WHERE review_id = {};
-        '''.format(review_id)
+        WHERE review_id = {} and reviewer_id = {};
+        '''.format(review_id,reviewer_id)
 
         self.cur.execute(query)
         self.con.commit()

@@ -212,8 +212,10 @@ def reviews():
 @login_required
 def delete_review(review_id,book_id):
     db = BookDatabase()
-    db.delete_review(review_id)
+    db.delete_review(review_id,current_user.id)
     return redirect('/book%3Fbook_id%3D{}'.format(book_id))
+
+@app.
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', threaded=True)

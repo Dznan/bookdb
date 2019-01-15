@@ -75,7 +75,7 @@ def login():
         db = BookDatabase()
         state = db.validate_login(username, password)
         # print(username)
-        if state:
+        if state == True:
             user_id, _, _ = db.get_user_info_by_username(username)
             # print(user_id)
             user = User(user_id, username, password)

@@ -191,7 +191,7 @@ class BookDatabase:
 
     def get_reviews(self):
         query = '''
-        SELECT title, content, review_likes_count.likes_num, books.book_id
+        SELECT title, content, review_likes_count.likes_num, books.book_id, reviews.review_id
         FROM books, reviews, review_likes_count
         WHERE reviews.book_id = books.book_id and reviews.review_id = review_likes_count.reviews
         ORDER BY reviews.time desc
@@ -271,6 +271,36 @@ class BookDatabase:
         DELETE FROM reviews
         WHERE review_id = {} and reviewer_id = {};
         '''.format(review_id,reviewer_id)
+
+        self.cur.execute(query)
+        self.con.commit()
+    
+    def get_like_list_by_user_id(self, user_id):
+        query = '''
+        SELECT reviews
+        FROM review_likes
+        WHERE liker_id = {}
+        '''.format(user_id)
+
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+
+        return result
+
+    def add_like_review(self, review_id, user_id):
+        query = '''
+        INSERT INTO `review_likes` (`likes_id`, `liker_id`, `reviews`, `time`) 
+        VALUES (NULL, '{}', '{}', CURRENT_TIMESTAMP)
+        '''.format(user_id, review_id)
+
+        self.cur.execute(query)
+        self.con.commit()
+
+    def del_like_review(self, review_id, user_id):
+        query = '''
+        DELETE FROM `review_likes`
+        WHERE liker_id = '{}' AND reviews = '{}'
+        '''.format(user_id, review_id)
 
         self.cur.execute(query)
         self.con.commit()

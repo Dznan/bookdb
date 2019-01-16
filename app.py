@@ -132,12 +132,14 @@ def book_detail(book_id):
     searchKey = book_id
     book_list = db.get_book_detail(book_id)
     reviews_list = db.get_reviews_by_book_id(book_id)
+    if current_user.is_authenticated:
+        like_list = db.get_like_list_by_user_id(current_user.id)
     form = SearchForm()
     reviewForm = ReviewForm()
     if reviewForm.validate_on_submit():
         db.insert_reivews(current_user.id, book_id, reviewForm.review_content.data)
         return redirect('/book%3Fbook_id%3D{}'.format(book_id))
-    return render_template('book.html', form=form, reviewForm = reviewForm, book_list=book_list, reviews_list=reviews_list, searchKey=searchKey, book_id=book_id,
+    return render_template('book.html', form=form, reviewForm = reviewForm, book_list=book_list, like_list=like_list, reviews_list=reviews_list, searchKey=searchKey, book_id=book_id,
                            active="book")
 
 
@@ -205,17 +207,32 @@ def publisher_detail(publisher_id):
 def reviews():
     db = BookDatabase()
     review_list = db.get_reviews()
+    if current_user.is_authenticated:
+        like_list = db.get_like_list_by_user_id(current_user.id)
     form = SearchForm()
-    return render_template('reviews.html', form=form, review_list=review_list, active="reviews")
+    return render_template('reviews.html', form=form, review_list=review_list, like_list=like_list, active="reviews")
 
-@app.route('/delete?review_id=<review_id>&book_id=<book_id>')
+@app.route('/delete?review_id=<review_id>&next=<origin_url>')
 @login_required
-def delete_review(review_id,book_id):
+def delete_review(review_id,origin_url):
     db = BookDatabase()
     db.delete_review(review_id,current_user.id)
-    return redirect('/book%3Fbook_id%3D{}'.format(book_id))
+    print(origin_url)
+    return redirect(origin_url)
 
-@app.
+@app.route('/like?like_type=<like_type>&review_id=<review_id>')
+@login_required
+def likes_review(like_type, review_id):
+    db = BookDatabase()
+    if like_type == 'add':
+        db.add_like_review(review_id,current_user.id)
+    elif like_type == 'del':
+        db.del_like_review(review_id,current_user.id)
+    return redirect('/empty')
+
+@app.route('/empty')
+def redic():
+    return render_template('empty.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', threaded=True)

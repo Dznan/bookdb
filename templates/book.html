@@ -196,27 +196,41 @@
                         window.location.reload()
                         } 
                     </script>
-                    {% if (review[5],) in like_list %}
-                    <div class="ui labeled button" tabindex="0" onClick="window.open('/like%3Flike_type%3Ddel%26review_id%3D{{ review[5] }}');window.setTimeout(reflash,1500);">
-                      <div class="ui red button">
-                          <i class="heart icon"></i>
-                          Likes
+                    {% if current_user.is_authenticated %}
+                      {% if (review[5],) in like_list %}
+                      <div class="ui labeled button" tabindex="0" onClick="window.open('/like%3Flike_type%3Ddel%26review_id%3D{{ review[5] }}');window.setTimeout(reflash,1500);">
+                        <div class="ui red button">
+                            <i class="heart icon"></i>
+                            Likes
+                          </div>
+                          <a class="ui basic red left pointing label">
+                            {{ review[3] }}
+                          </a>
                         </div>
-                        <a class="ui basic red left pointing label">
-                          {{ review[3] }}
-                        </a>
-                      </div>
-                    {% else %}
-                    <div class="ui labeled button" tabindex="0" onClick="window.open('/like%3Flike_type%3Dadd%26review_id%3D{{ review[5] }}');window.setTimeout(reflash,1500);">
-                      <div class="ui blue button">
-                          <i class="heart icon"></i>
-                          Likes
+                      {% else %}
+                      <div class="ui labeled button" tabindex="0" onClick="window.open('/like%3Flike_type%3Dadd%26review_id%3D{{ review[5] }}');window.setTimeout(reflash,1500);">
+                        <div class="ui blue button">
+                            <i class="heart icon"></i>
+                            Likes
+                          </div>
+                          <a class="ui basic blue left pointing label">
+                            {{ review[3] }}
+                          </a>
                         </div>
-                        <a class="ui basic blue left pointing label">
-                          {{ review[3] }}
-                        </a>
+                      {% endif %}
+                  
+                  {% else %}
+                  <div class="ui labeled button" tabindex="0">
+                    <div class="ui blue button">
+                        <i class="heart icon"></i>
+                        Likes
                       </div>
-                    {% endif %}
+                      <a class="ui basic blue left pointing label">
+                        {{ review[3] }}
+                      </a>
+                    </div>
+                  {% endif %}
+
                     
                   {% if review[4] == current_user.id %}
                   

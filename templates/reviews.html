@@ -87,40 +87,43 @@
               <td>{{ review[1] }}</td>
 
               <td width="20%">
-                <!-- <div class="ui labeled button" tabindex="0">
+                {% if current_user.is_authenticated %}
+                  <script>
+                      function reflash(){
+                        window.location.reload()
+                        } 
+                    </script>
+                    {% if (review[4],) in like_list %}
+                    <div class="ui labeled button" tabindex="0" onClick="window.open('/like%3Flike_type%3Ddel%26review_id%3D{{ review[4] }}');window.setTimeout(reflash,1500);">
+                      <div class="ui red button">
+                          <i class="heart icon"></i>
+                          Likes
+                        </div>
+                        <a class="ui basic red left pointing label">
+                          {{ review[2] }}
+                        </a>
+                      </div>
+                    {% else %}
+                    <div class="ui labeled button" tabindex="0" onClick="window.open('/like%3Flike_type%3Dadd%26review_id%3D{{ review[4] }}');window.setTimeout(reflash,1500);">
+                      <div class="ui blue button">
+                          <i class="heart icon"></i>
+                          Likes
+                        </div>
+                        <a class="ui basic blue left pointing label">
+                          {{ review[2] }}
+                        </a>
+                      </div>
+                    {% endif %}
+                  {% else %}
+                  <div class="ui labeled button" tabindex="0">
                   <div class="ui blue button">
                     <i class="heart icon"></i> Like
                   </div>
                   <a class="ui basic blue left pointing label">
                     {{ review[2] }}
                   </a>
-                </div> -->
-                <script>
-                    function reflash(){
-                      window.location.reload()
-                      } 
-                  </script>
-                  {% if (review[4],) in like_list %}
-                  <div class="ui labeled button" tabindex="0" onClick="window.open('/like%3Flike_type%3Ddel%26review_id%3D{{ review[4] }}');window.setTimeout(reflash,1500);">
-                    <div class="ui red button">
-                        <i class="heart icon"></i>
-                        Likes
-                      </div>
-                      <a class="ui basic red left pointing label">
-                        {{ review[2] }}
-                      </a>
-                    </div>
-                  {% else %}
-                  <div class="ui labeled button" tabindex="0" onClick="window.open('/like%3Flike_type%3Dadd%26review_id%3D{{ review[4] }}');window.setTimeout(reflash,1500);">
-                    <div class="ui blue button">
-                        <i class="heart icon"></i>
-                        Likes
-                      </div>
-                      <a class="ui basic blue left pointing label">
-                        {{ review[2] }}
-                      </a>
-                    </div>
                   {% endif %}
+                </div>
               </td>
             </tr>
           </tbody>

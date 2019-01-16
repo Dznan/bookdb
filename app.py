@@ -132,6 +132,7 @@ def book_detail(book_id):
     searchKey = book_id
     book_list = db.get_book_detail(book_id)
     reviews_list = db.get_reviews_by_book_id(book_id)
+    like_list = []
     if current_user.is_authenticated:
         like_list = db.get_like_list_by_user_id(current_user.id)
     form = SearchForm()
@@ -207,6 +208,7 @@ def publisher_detail(publisher_id):
 def reviews():
     db = BookDatabase()
     review_list = db.get_reviews()
+    like_list = []
     if current_user.is_authenticated:
         like_list = db.get_like_list_by_user_id(current_user.id)
     form = SearchForm()
